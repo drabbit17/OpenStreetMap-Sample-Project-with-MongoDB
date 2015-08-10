@@ -1,5 +1,5 @@
 # OpenStreetMap Sample Project - DataWrangling with MongoDB
-## Matteo Pallini
+#### Matteo Pallini
 
 Map Area: Milan, Lombardia, Italy
 
@@ -44,19 +44,19 @@ Milan.osm......... 549 mb
 Milan.json........ 625 mb  
 
 *Number of documents*  
-    > collection.find().count()                                                  
+    collection.find().count()                                                  
 4766245  
                                       
 *Number of nodes*  
-    > collection.find({"type":"node"}).count()  
+    collection.find({"type":"node"}).count()  
 4383822  
 
 *Number of ways*  
-    > collection.find({"type":"way"}).count()  
+	collection.find({"type":"way"}).count()  
 371559  
                                                
 *Number of unique users*  
-    > DistUser = collection.distinct("created.user")  
+	DistUser = collection.distinct("created.user")  
     len(DistUser)  
 1724  
 
