@@ -44,7 +44,9 @@ Milan.osm......... 549 mb
 Milan.json........ 625 mb  
 
 *Number of documents*  
+
     collection.find().count()                                                  
+
 4766245  
                                       
 *Number of nodes*  
