@@ -124,11 +124,13 @@ The contributors distribution results way less skewed than the one in the exampl
  {u'_id': u'bank', u'count': 1448},  
  {u'_id': u'place_of_worship', u'count': 1219}]
                                               
-#### Biggest religion (being Italy a Catholic country christianity is the leading religion)  
+#### Biggest religion 
+(being Italy a Catholic country christianity is the leading religion)  
+
 	> collection.aggregate([{"$match" : {"amenity" : {"$exists" : 1}, "amenity" : "place_of_worship"}},
-              			{"$group" : {"_id" : "$religion", "count" : {"$sum" : 1}}},
-                        	{"$sort" : {"count" : -1}}, 
-                        	{"$limit" : 4}])
+				{"$group" : {"_id" : "$religion", "count" : {"$sum" : 1}}},
+				{"$sort" : {"count" : -1}}, 
+				{"$limit" : 4}])
 
 [{u'_id': u'christian', u'count': 1160},  
  {u'_id': None, u'count': 33},  
@@ -160,7 +162,8 @@ The contributors distribution results way less skewed than the one in the exampl
  {u'_id': u'Banca Intesa', u'count': 41}]  
 
 #### Top Cities listed 
-(it is quite a surprise that most of observations listed belong to Monza rather than Milan)   
+(it is quite a surprise that most of observations listed belong to Monza rather than Milan)  
+
 	> collection.aggregate([{"$match" : {"address.city" : {"$exists" : 1}}},
 				{"$group" : {"_id" : "$address.city", "count" : {"$sum" : 1}}}, 
 				{"$sort" : {"count" : -1}}, 
