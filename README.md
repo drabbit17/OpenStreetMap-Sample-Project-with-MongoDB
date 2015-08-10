@@ -43,23 +43,26 @@ This section contains basic statistics about the dataset and the MongoDB queries
 Milan.osm......... 549 mb  
 Milan.json........ 625 mb  
 
-*Number of documents*  
+#### Number of documents  
 
     collection.find().count()                                                  
 
 4766245  
                                       
-*Number of nodes*  
+#### Number of nodes  
     collection.find({"type":"node"}).count()  
+
 4383822  
 
-*Number of ways*  
+#### Number of ways  
 	collection.find({"type":"way"}).count()  
+
 371559  
                                                
-*Number of unique users*  
+Number of unique users  
 	DistUser = collection.distinct("created.user")  
-    len(DistUser)  
+	len(DistUser)  
+
 1724  
 
 
