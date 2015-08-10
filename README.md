@@ -3,7 +3,8 @@
 
 Map Area: Milan, Lombardia, Italy
 
-[download](https://mapzen.com/data/metro-extracts)
+source:
+[https://mapzen.com/data/metro-extracts](https://mapzen.com/data/metro-extracts)
 
 ## 1 Problems encountered in the Map
 After downloading the Milan map area from metro extracts website i started exploring the data to better understand potential problems with them and the details included. Three main problems where identified and corrected. Those are discussed in the following order:
