@@ -35,7 +35,7 @@ In the table below can be found the standards adopted:
 #### Dots in Keys
 In few cases some tag names included "." rather than ":", creating a conflict when the XML was converted into a JSON file. In order to solve this issue all "." in tag names where substituted with ":".
 
-## Data Overview
+## 2 Data Overview
 This section contains basic statistics about the dataset and the MongoDB queries used to gather them.
 
 #### File sizes  
@@ -43,23 +43,26 @@ This section contains basic statistics about the dataset and the MongoDB queries
 Milan.osm......... 549 mb  
 Milan.json........ 625 mb  
 
-Number of documents  
+#### Number of documents  
 
     collection.find().count()                                                  
 
 4766245  
                                       
-Number of nodes  
+#### Number of nodes  
+
     collection.find({"type":"node"}).count()  
 
 4383822  
 
-Number of ways  
+#### Number of ways  
+
 	collection.find({"type":"way"}).count()  
 
 371559  
                                                
-Number of unique users  
+#### Number of unique users  
+
 	DistUser = collection.distinct("created.user")  
 	len(DistUser)  
 
@@ -75,13 +78,14 @@ Number of unique users
 	contributor = list(contributor)
 	return contributor
 	
-Top 1 contributing user  
+#### Top 1 contributing user  
+
 	ContributorExtr(1)  
 
 [{u'count': 599526, u'_id': u'ilrobi'}]
 
                                              
-Number of users appearing only once (having 1 post)  
+#### Number of users appearing only once (having 1 post)  
 
 	> uniqueContribution = collection.aggregate([{"$group" : {"_id" : "$created.user", "count" : {"$sum" : 1}}}, 
 							{"$group" : {"_id" : "$count", "num_users" : {"$sum" : 1}}}, 
@@ -91,6 +95,7 @@ Number of users appearing only once (having 1 post)
 [{u'num_users': 131, u'_id': 1}]
 
 
+## 3 Additional data exploration using MongoDB queries
 
 #### Contributors Distribution
 The contributors distribution results way less skewed than the one in the example provided. Still the number of users accounting for the bottom 1% is still very large, amounting to around 78% of all users.
@@ -101,71 +106,70 @@ The contributors distribution results way less skewed than the one in the exampl
 * Combined number of users making up only 1% of posts - 1347 (about 78 % of the all users)
 * Combined number of users making up only 1% of posts - 1347 (about 78 % of the all users)
 
-#### Additional data exploration using MongoDB queries
-
-10 appearing amenities  
+#### 10 appearing amenities  
 
 	> collection.aggregate([{"$match" : {"amenity" : {"$exists" : 1}}},
 				{"$group" : {"_id" : "$amenity", "count" : {"$sum" : 1}}}, 
 				{"$sort" : {"count" : -1}}, 
 				{"$limit" : 10}])                
  
-[{u'_id': u'parking', u'count': 10444},
- {u'_id': u'bench', u'count': 4461},
- {u'_id': u'waste_basket', u'count': 2829},
- {u'_id': u'restaurant', u'count': 2448},
- {u'_id': u'fuel', u'count': 1856},
- {u'_id': u'cafe', u'count': 1830},
- {u'_id': u'drinking_water', u'count': 1728},
- {u'_id': u'bicycle_parking', u'count': 1529},
- {u'_id': u'bank', u'count': 1448},
- {u'_id': u'place_of_worship', u'count': 1219}]                      
+[{u'_id': u'parking', u'count': 10444},  
+ {u'_id': u'bench', u'count': 4461},  
+ {u'_id': u'waste_basket', u'count': 2829},  
+ {u'_id': u'restaurant', u'count': 2448},  
+ {u'_id': u'fuel', u'count': 1856},  
+ {u'_id': u'cafe', u'count': 1830},  
+ {u'_id': u'drinking_water', u'count': 1728},  
+ {u'_id': u'bicycle_parking', u'count': 1529},  
+ {u'_id': u'bank', u'count': 1448},  
+ {u'_id': u'place_of_worship', u'count': 1219}]
                                               
-*Biggest religion (being Italy a Catholic country christianity is the leading religion)*  
+#### Biggest religion (being Italy a Catholic country christianity is the leading religion)  
 	> collection.aggregate([{"$match" : {"amenity" : {"$exists" : 1}, "amenity" : "place_of_worship"}},
               			{"$group" : {"_id" : "$religion", "count" : {"$sum" : 1}}},
                         	{"$sort" : {"count" : -1}}, 
                         	{"$limit" : 4}])
 
-[{u'_id': u'christian', u'count': 1160},
- {u'_id': None, u'count': 33},
- {u'_id': u'jewish', u'count': 19},
- {u'_id': u'buddhist', u'count': 4}]
+[{u'_id': u'christian', u'count': 1160},  
+ {u'_id': None, u'count': 33},  
+ {u'_id': u'jewish', u'count': 19},  
+ {u'_id': u'buddhist', u'count': 4}]  
 
                                                                                     
-*Most popular cuisines*  
+#### Most popular cuisines  
 	> collection.aggregate([{"$match" : {"amenity" : {"$exists" : 1}, "amenity" : "restaurant"}}, 
 				{"$group" : {"_id" : "$cuisine", "count" : {"$sum" : 1}}},
 				{"$sort" : {"count" : -1}}, 
 				{"$limit" : 4}])
 
-[{u'_id': None, u'count': 1088},
- {u'_id': u'italian', u'count': 424},
- {u'_id': u'pizza', u'count': 356},
- {u'_id': u'regional', u'count': 103}]       		
+[{u'_id': None, u'count': 1088},  
+ {u'_id': u'italian', u'count': 424},  
+ {u'_id': u'pizza', u'count': 356},  
+ {u'_id': u'regional', u'count': 103}]  
 
 
-*Top Bank*  
+#### Top Bank  
 	> collection.aggregate([{"$match" : {"name" : {"$exists" : 1}, 'amenity' : 'bank'}},
 				{"$group" : {"_id" : "$name", "count" : {"$sum" : 1}}}, 
 				{"$sort" : {"count" : -1}}, 
 				{"$limit" : 4}])  
 
-[{u'_id': u'Unicredit', u'count': 102},
- {u'_id': u'Banca Popolare di Milano', u'count': 57},
- {u'_id': u'Intesa San Paolo', u'count': 42},
- {u'_id': u'Banca Intesa', u'count': 41}]
+[{u'_id': u'Unicredit', u'count': 102},  
+ {u'_id': u'Banca Popolare di Milano', u'count': 57},  
+ {u'_id': u'Intesa San Paolo', u'count': 42},  
+ {u'_id': u'Banca Intesa', u'count': 41}]  
 
-*Top Cities listed (it is quite a surprise that most of observations listed belong to Monza rather than Milan)*  
+#### Top Cities listed 
+(it is quite a surprise that most of observations listed belong to Monza rather than Milan)   
 	> collection.aggregate([{"$match" : {"address.city" : {"$exists" : 1}}},
 				{"$group" : {"_id" : "$address.city", "count" : {"$sum" : 1}}}, 
 				{"$sort" : {"count" : -1}}, 
 				{"$limit" : 4}])
 
-[{u'_id': u'Monza', u'count': 13196},
- {u'_id': u'Milano', u'count': 8410},
- {u'_id': u'Brugherio', u'count': 4356},
- {u'_id': u'Cusano Milanino', u'count': 3293}]
+[{u'_id': u'Monza', u'count': 13196},  
+ {u'_id': u'Milano', u'count': 8410},  
+ {u'_id': u'Brugherio', u'count': 4356},  
+ {u'_id': u'Cusano Milanino', u'count': 3293}]  
 
 
 ## Conclusion
