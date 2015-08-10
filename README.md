@@ -15,7 +15,7 @@ After downloading the Milan map area from metro extracts website i started explo
 #### Postal Codes
 Some postal codes included in the dataset present a smaller number of digits. The most likely cause for this issue is the partial compilation of the postal code. Rather than including a potentially misleading value i prefer to substitute the miscoded one with "None".
 
-### Street Names
+#### Street Names
 In Italy the most commonly used name to call a street is "via", while for a square it is usually used "Piazza". In some cases, those commonly adopted names and some others, were used without the initial capital letter or using exclusively capital letters. In order to solve this problem a common standard was defined for each usually adopted word and used for each address.
 
 In the table below can be found the standards adopted:
@@ -32,13 +32,13 @@ In the table below can be found the standards adopted:
 | Ingresso | Ingresso |
 
 
-### Dots in Keys
+#### Dots in Keys
 In few cases some tag names included "." rather than ":", creating a conflict when the XML was converted into a JSON file. In order to solve this issue all "." in tag names where substituted with ":".
 
 ## Data Overview
 This section contains basic statistics about the dataset and the MongoDB queries used to gather them.
 
-### File sizes
+#### File sizes
 
 Milan.osm......... 549 mb
 Milan.json........ 625 mb
@@ -85,7 +85,7 @@ Milan.json........ 625 mb
 
 
 
-### Contributors Distribution
+#### Contributors Distribution
 The contributors distribution results way less skewed than the one in the example provided. Still the number of users accounting for the bottom 1% is still very large, amounting to around 78% of all users.
 
 * Top user contribution percentage (“ilrobi”) - 13.67%
@@ -94,6 +94,8 @@ The contributors distribution results way less skewed than the one in the exampl
 * Combined number of users making up only 1% of posts - 1347 (about 78 % of the all users)
 
 ## Combined number of users making up only 1% of posts - 1347 (about 78 % of the all users)
+
+#### Additional data exploration using MongoDB queries
 
 *10 appearing amenities*                                            
 	> collection.aggregate([{"$match" : {"amenity" : {"$exists" : 1}}},
