@@ -43,26 +43,26 @@ This section contains basic statistics about the dataset and the MongoDB queries
 Milan.osm......... 549 mb  
 Milan.json........ 625 mb  
 
-*Number of documents*
-	> collection.find().count()                                                
-4766245
+*Number of documents*  
+    > collection.find().count()                                                  
+4766245  
                                       
-*Number of nodes*
-	> collection.find({"type":"node"}).count()
-4383822
+*Number of nodes*  
+    > collection.find({"type":"node"}).count()  
+4383822  
 
-*Number of ways*
-	> collection.find({"type":"way"}).count()
-371559
+*Number of ways*  
+    > collection.find({"type":"way"}).count()  
+371559  
                                                
-*Number of unique users*
-	> DistUser = collection.distinct("created.user")
-	len(DistUser)
-1724
+*Number of unique users*  
+    > DistUser = collection.distinct("created.user")  
+    len(DistUser)  
+1724  
 
 
                                               
-## *Function to identify top contributors*
+#### *Function to identify top contributors*
 	def ContributorExtr(n):
 	contributor = collection.aggregate([{"$group" : {"_id" : "$created.user", "count" : {"$sum" : 1}}}, 
 											{ "$sort" : { "count" : -1} },
@@ -70,16 +70,16 @@ Milan.json........ 625 mb
 	contributor = list(contributor)
 	return contributor
 	
-*Top 1 contributing user*	
-	> ContributorExtr(1)
+*Top 1 contributing user*  	
+	> ContributorExtr(1)  
 [{u'count': 599526, u'_id': u'ilrobi'}]
 
                                              
-*Number of users appearing only once (having 1 post)*
+*Number of users appearing only once (having 1 post)*  
 	> uniqueContribution = collection.aggregate([{"$group" : {"_id" : "$created.user", "count" : {"$sum" : 1}}}, 
 							{"$group" : {"_id" : "$count", "num_users" : {"$sum" : 1}}}, 
 							{"$sort" : {"_id" : 1}}, 
-							{"$limit" : 1}])
+							{"$limit" : 1}])  
 
 [{u'num_users': 131, u'_id': 1}]
 
@@ -92,16 +92,15 @@ The contributors distribution results way less skewed than the one in the exampl
 * Combined top 2 users' contribution (“ilrobi” and “Alecs01”) - 25.69% 
 * Combined Top 10 users contribution - 59.93%
 * Combined number of users making up only 1% of posts - 1347 (about 78 % of the all users)
-
-## Combined number of users making up only 1% of posts - 1347 (about 78 % of the all users)
+* Combined number of users making up only 1% of posts - 1347 (about 78 % of the all users)
 
 #### Additional data exploration using MongoDB queries
 
-*10 appearing amenities*                                            
+*10 appearing amenities*               
 	> collection.aggregate([{"$match" : {"amenity" : {"$exists" : 1}}},
 				{"$group" : {"_id" : "$amenity", "count" : {"$sum" : 1}}}, 
 				{"$sort" : {"count" : -1}}, 
-				{"$limit" : 10}])                       
+				{"$limit" : 10}])                
  
 [{u'_id': u'parking', u'count': 10444},
  {u'_id': u'bench', u'count': 4461},
@@ -114,7 +113,7 @@ The contributors distribution results way less skewed than the one in the exampl
  {u'_id': u'bank', u'count': 1448},
  {u'_id': u'place_of_worship', u'count': 1219}]                      
                                               
-*Biggest religion (being Italy a Catholic country christianity is the leading religion)*                                               
+*Biggest religion (being Italy a Catholic country christianity is the leading religion)*  
 	> collection.aggregate([{"$match" : {"amenity" : {"$exists" : 1}, "amenity" : "place_of_worship"}},
               			{"$group" : {"_id" : "$religion", "count" : {"$sum" : 1}}},
                         	{"$sort" : {"count" : -1}}, 
@@ -126,7 +125,7 @@ The contributors distribution results way less skewed than the one in the exampl
  {u'_id': u'buddhist', u'count': 4}]
 
                                                                                     
-*Most popular cuisines*                                               
+*Most popular cuisines*  
 	> collection.aggregate([{"$match" : {"amenity" : {"$exists" : 1}, "amenity" : "restaurant"}}, 
 				{"$group" : {"_id" : "$cuisine", "count" : {"$sum" : 1}}},
 				{"$sort" : {"count" : -1}}, 
@@ -138,18 +137,18 @@ The contributors distribution results way less skewed than the one in the exampl
  {u'_id': u'regional', u'count': 103}]       		
 
 
-*Top Bank*
+*Top Bank*  
 	> collection.aggregate([{"$match" : {"name" : {"$exists" : 1}, 'amenity' : 'bank'}},
 				{"$group" : {"_id" : "$name", "count" : {"$sum" : 1}}}, 
 				{"$sort" : {"count" : -1}}, 
-				{"$limit" : 4}])
+				{"$limit" : 4}])  
 
 [{u'_id': u'Unicredit', u'count': 102},
  {u'_id': u'Banca Popolare di Milano', u'count': 57},
  {u'_id': u'Intesa San Paolo', u'count': 42},
  {u'_id': u'Banca Intesa', u'count': 41}]
 
-*Top Cities listed (it is quite a surprise that most of observations listed belong to Monza rather than Milan)*
+*Top Cities listed (it is quite a surprise that most of observations listed belong to Monza rather than Milan)*  
 	> collection.aggregate([{"$match" : {"address.city" : {"$exists" : 1}}},
 				{"$group" : {"_id" : "$address.city", "count" : {"$sum" : 1}}}, 
 				{"$sort" : {"count" : -1}}, 
