@@ -43,18 +43,18 @@ This section contains basic statistics about the dataset and the MongoDB queries
 Milan.osm......... 549 mb  
 Milan.json........ 625 mb  
 
-#### Number of documents  
+Number of documents  
 
     collection.find().count()                                                  
 
 4766245  
                                       
-#### Number of nodes  
+Number of nodes  
     collection.find({"type":"node"}).count()  
 
 4383822  
 
-#### Number of ways  
+Number of ways  
 	collection.find({"type":"way"}).count()  
 
 371559  
@@ -75,12 +75,14 @@ Number of unique users
 	contributor = list(contributor)
 	return contributor
 	
-*Top 1 contributing user*  	
-	> ContributorExtr(1)  
+Top 1 contributing user  
+	ContributorExtr(1)  
+
 [{u'count': 599526, u'_id': u'ilrobi'}]
 
                                              
-*Number of users appearing only once (having 1 post)*  
+Number of users appearing only once (having 1 post)  
+
 	> uniqueContribution = collection.aggregate([{"$group" : {"_id" : "$created.user", "count" : {"$sum" : 1}}}, 
 							{"$group" : {"_id" : "$count", "num_users" : {"$sum" : 1}}}, 
 							{"$sort" : {"_id" : 1}}, 
@@ -101,7 +103,8 @@ The contributors distribution results way less skewed than the one in the exampl
 
 #### Additional data exploration using MongoDB queries
 
-*10 appearing amenities*               
+10 appearing amenities  
+
 	> collection.aggregate([{"$match" : {"amenity" : {"$exists" : 1}}},
 				{"$group" : {"_id" : "$amenity", "count" : {"$sum" : 1}}}, 
 				{"$sort" : {"count" : -1}}, 
