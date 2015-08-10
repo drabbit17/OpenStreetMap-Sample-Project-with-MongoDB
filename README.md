@@ -12,7 +12,7 @@ After downloading the Milan map area from metro extracts website i started explo
 * Street names lacking a common standard, i.e. "via" rather than "Via"...
 * Dots included in tag values in the XML file. 
 
-### Postal Codes
+#### Postal Codes
 Some postal codes included in the dataset present a smaller number of digits. The most likely cause for this issue is the partial compilation of the postal code. Rather than including a potentially misleading value i prefer to substitute the miscoded one with "None".
 
 ### Street Names
@@ -30,7 +30,7 @@ In the table below can be found the standards adopted:
 | vial | Viale |
 | piazza | Piazza |
 | Ingresso | Ingresso |
-|-------------|:----------------|
+
 
 ### Dots in Keys
 In few cases some tag names included "." rather than ":", creating a conflict when the XML was converted into a JSON file. In order to solve this issue all "." in tag names where substituted with ":".
