@@ -1,5 +1,4 @@
-# OpenStreetMap Sample Project
-# DataWrangling with MongoDB
+# OpenStreetMap Sample Project DataWrangling with MongoDB
 ## Matteo Pallini
 
 Map Area: Milan, Lombardia, Italy
