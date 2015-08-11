@@ -174,6 +174,13 @@ The contributors distribution results way less skewed than the one in the exampl
  {u'_id': u'Brugherio', u'count': 4356},  
  {u'_id': u'Cusano Milanino', u'count': 3293}]  
 
+#### Contributor, geographic statistics and Local representatives suggestion
+Looking at users’ names and at how the data inputs are distributed among them we can claim that not only users contributions distribution is not dramatically skewed toward certain users, but that bots have not been used to map the city of Milan. Another point of interest is the overwhelming presence of data inputs for Monza and, generally speaking, the very poor one for Milan. This can be inferred both from the “address.city” tag and from the “contacts.postcode” one.
+
+This lack of data for the city of Milan matched with the apparently willingness to contribute to the project expressed by individuals living in the areas make me think that a subdivision of the city in local small quarters where OpenStreetMap representatives are appointed may facilitate the city mapping. In such a way the different quarters may feel like in competition one with the other and struggle to insert as many information as possible.  Moreover, the data input effort may also be distributed across several members of the quarter giving them a further feeling of belonging to a team that is trying to make its local area shine. 
+
+If the case that this kind of quarters competition is implemented, two main issues stem from. Appointing everywhere a representative may result particularly difficult and in some areas it may also result unfeasible. The second problem may be overcome including “exploratory expeditions” in neighboring areas by particularly successful quarters.
+
 
 ## Conclusion
 
